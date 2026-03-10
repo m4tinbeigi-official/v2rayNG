@@ -1090,7 +1090,8 @@ object V2rayConfigManager {
             EConfigType.AMNEZIAWG,
             EConfigType.DNSTT,
             EConfigType.SLIPSTREAM,
-            EConfigType.SUSH_MODE -> {
+            EConfigType.SUSH_MODE,
+            EConfigType.TUIC -> {
                 // For custom cores, Xray acts as a SOCKS client connecting to the custom core's local port
                 val socksProfile = ProfileItem().apply {
                     server = "127.0.0.1"
@@ -1134,7 +1135,8 @@ object V2rayConfigManager {
             EConfigType.AMNEZIAWG,
             EConfigType.DNSTT,
             EConfigType.SLIPSTREAM,
-            EConfigType.SUSH_MODE ->
+            EConfigType.SUSH_MODE,
+            EConfigType.TUIC ->
                 return OutboundBean(
                     protocol = EConfigType.SOCKS.name.lowercase(),
                     settings = OutSettingsBean(

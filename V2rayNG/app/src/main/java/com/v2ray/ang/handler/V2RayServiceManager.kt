@@ -178,7 +178,8 @@ object V2RayServiceManager {
         if (configType == EConfigType.AMNEZIAWG ||
             configType == EConfigType.DNSTT ||
             configType == EConfigType.SLIPSTREAM ||
-            configType == EConfigType.SUSH_MODE) {
+            configType == EConfigType.SUSH_MODE ||
+            configType == EConfigType.TUIC) {
             Log.i(AppConfig.TAG, "StartCore-Manager: Starting custom core for $configType")
             if (!CustomCoreManager.startCustomCore(service, config)) {
                 Log.e(AppConfig.TAG, "StartCore-Manager: Failed to start custom core")

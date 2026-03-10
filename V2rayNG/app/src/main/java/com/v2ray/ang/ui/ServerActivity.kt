@@ -402,6 +402,12 @@ class ServerActivity : BaseActivity() {
             et_id.text = Utils.getEditable(config.password.orEmpty())
         } else if (config.configType == EConfigType.SUSH_MODE) {
             et_id.text = Utils.getEditable(config.publicKey.orEmpty())
+        } else if (config.configType == EConfigType.TUIC) {
+            et_id.text = Utils.getEditable(config.username.orEmpty())
+            et_security?.text = Utils.getEditable(config.password.orEmpty())
+            et_sni?.text = Utils.getEditable(config.sni.orEmpty())
+            et_alpn?.text = Utils.getEditable(config.alpn.orEmpty())
+            et_flow?.text = Utils.getEditable(config.congestion.orEmpty())
         }
         val securityEncryptions =
             if (config.configType == EConfigType.SHADOWSOCKS) shadowsocksSecuritys else securitys
@@ -590,6 +596,12 @@ class ServerActivity : BaseActivity() {
             config.password = et_id.text.toString().trim()
         } else if (config.configType == EConfigType.SUSH_MODE) {
             config.publicKey = et_id.text.toString().trim()
+        } else if (config.configType == EConfigType.TUIC) {
+            config.username = et_id.text.toString().trim()
+            config.password = et_security?.text.toString().trim()
+            config.sni = et_sni?.text.toString().trim()
+            config.alpn = et_alpn?.text.toString().trim()
+            config.congestion = et_flow?.text.toString().trim()
         }
     }
 

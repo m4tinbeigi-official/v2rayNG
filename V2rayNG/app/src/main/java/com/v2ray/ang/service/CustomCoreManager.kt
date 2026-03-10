@@ -16,6 +16,7 @@ object CustomCoreManager {
     private const val PORT_DNSTT = 20002
     private const val PORT_SLIPSTREAM = 20003
     private const val PORT_SUSHMODE = 20004
+    private const val PORT_TUIC = 20005
 
     fun getCorePort(config: ProfileItem): Int {
         return when (config.configType) {
@@ -23,6 +24,7 @@ object CustomCoreManager {
             EConfigType.DNSTT -> PORT_DNSTT
             EConfigType.SLIPSTREAM -> PORT_SLIPSTREAM
             EConfigType.SUSH_MODE -> PORT_SUSHMODE
+            EConfigType.TUIC -> PORT_TUIC
             else -> -1
         }
     }
@@ -73,6 +75,7 @@ object CustomCoreManager {
             EConfigType.DNSTT -> "dnstt-client"
             EConfigType.SLIPSTREAM -> "slipstream"
             EConfigType.SUSH_MODE -> "sushmode"
+            EConfigType.TUIC -> "tuic-client"
             else -> null
         }
     }
@@ -109,6 +112,20 @@ object CustomCoreManager {
                 cmd.add("127.0.0.1:$port")
                 cmd.add("-key")
                 cmd.add(config.publicKey.orEmpty())
+            }
+            EConfigType.TUIC -> {
+                // Example tuic-client args
+                // tuic-client -c config.json or pass via CLI params. We use CLI if supported, or assume a wrapper.
+                cmd.add("-s")
+                cmd.add("${config.server}:${config.serverPort}")
+                cmd.add("-p")
+                cmd.add(config.password.orEmpty())
+                cmd.add("-u")
+                cmd.add(config.username.orEmpty())
+                cmd.add("-b")
+                cmd.add("127.0.0.1:$port")
+                cmd.add("--alpn")
+                cmd.add(config.alpn.orEmpty())
             }
             else -> {}
         }
