@@ -140,12 +140,14 @@ object AngConfigManager {
                 EConfigType.SHADOWSOCKS -> ShadowsocksFmt.toUri(config)
                 EConfigType.SOCKS -> SocksFmt.toUri(config)
                 EConfigType.HTTP -> ""
+                EConfigType.SUSH_MODE -> SushModeFmt.toUri(config)
+                EConfigType.TUIC -> TuicFmt.toUri(config)
                 EConfigType.VLESS -> VlessFmt.toUri(config)
                 EConfigType.TROJAN -> TrojanFmt.toUri(config)
                 EConfigType.WIREGUARD -> WireguardFmt.toUri(config)
                 EConfigType.HYSTERIA2 -> Hysteria2Fmt.toUri(config)
                 EConfigType.POLICYGROUP -> ""
-                else -> {}
+                else -> ""
             }
         } catch (e: Exception) {
             Log.e(AppConfig.TAG, "Failed to share config for GUID: $guid", e)
@@ -406,6 +408,16 @@ object AngConfigManager {
                 WireguardFmt.parse(str)
             } else if (str.startsWith(EConfigType.HYSTERIA2.protocolScheme) || str.startsWith(HY2)) {
                 Hysteria2Fmt.parse(str)
+            } else if (str.startsWith(EConfigType.AMNEZIAWG.protocolScheme)) {
+                AmneziawgFmt.parse(str)
+            } else if (str.startsWith(EConfigType.DNSTT.protocolScheme)) {
+                DnsttFmt.parse(str)
+            } else if (str.startsWith(EConfigType.SLIPSTREAM.protocolScheme)) {
+                SlipstreamFmt.parse(str)
+            } else if (str.startsWith(EConfigType.SUSH_MODE.protocolScheme)) {
+                SushModeFmt.parse(str)
+            } else if (str.startsWith(EConfigType.TUIC.protocolScheme)) {
+                TuicFmt.parse(str)
             } else {
                 null
             }
