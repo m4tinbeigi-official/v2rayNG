@@ -292,6 +292,26 @@ class MainActivity : HelperBaseActivity(), NavigationView.OnNavigationItemSelect
             true
         }
 
+        R.id.import_manually_amneziawg -> {
+            importManually(EConfigType.AMNEZIAWG.value)
+            true
+        }
+
+        R.id.import_manually_dnstt -> {
+            importManually(EConfigType.DNSTT.value)
+            true
+        }
+
+        R.id.import_manually_slipstream -> {
+            importManually(EConfigType.SLIPSTREAM.value)
+            true
+        }
+
+        R.id.import_manually_sushmode -> {
+            importManually(EConfigType.SUSH_MODE.value)
+            true
+        }
+
         R.id.export_all -> {
             exportAll()
             true

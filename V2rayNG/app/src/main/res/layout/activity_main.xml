@@ -60,55 +60,55 @@
                         android:scrollbars="vertical"
                         android:layout_weight="1" />
 
-                    <LinearLayout
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/layout_test"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/view_height_dp64"
+                        android:layout_margin="@dimen/padding_spacing_dp16"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="4dp"
                         android:clickable="true"
                         android:contentDescription="@string/connection_test_pending"
                         android:focusable="true"
                         android:nextFocusLeft="@+id/view_pager"
-                        android:nextFocusRight="@+id/fab"
-                        android:orientation="vertical">
-
-                        <View
-                            android:layout_width="wrap_content"
-                            android:layout_height="1dp"
-                            android:background="@color/divider_color_light" />
+                        android:nextFocusRight="@+id/fab">
 
                         <TextView
                             android:id="@+id/tv_test_state"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="start|center"
+                            android:gravity="center"
                             android:maxLines="2"
                             android:minLines="1"
-                            android:paddingStart="@dimen/padding_spacing_dp16"
+                            android:padding="@dimen/padding_spacing_dp8"
                             android:text="@string/connection_test_pending"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="?attr/colorPrimary"
+                            android:textStyle="bold" />
 
-                    </LinearLayout>
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
-                    android:layout_marginEnd="@dimen/padding_spacing_dp16">
+                    android:layout_marginEnd="@dimen/padding_spacing_dp24"
+                    android:layout_marginBottom="@dimen/padding_spacing_dp24">
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|end"
-                        android:layout_marginBottom="@dimen/view_height_dp36"
                         android:clickable="true"
                         android:contentDescription="@string/tasker_start_service"
                         android:focusable="true"
                         android:nextFocusLeft="@+id/layout_test"
                         android:src="@drawable/ic_play_24dp"
                         app:tint="@color/colorWhite"
-                        app:layout_anchorGravity="bottom|right|end" />
+                        app:fabSize="auto"
+                        app:elevation="8dp" />
 
                 </FrameLayout>
             </androidx.coordinatorlayout.widget.CoordinatorLayout>

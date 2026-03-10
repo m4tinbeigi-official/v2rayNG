@@ -38,6 +38,10 @@
     <string name="menu_item_import_config_manually_trojan">هؽل دستی[Trojan]</string>
     <string name="menu_item_import_config_manually_wireguard">هؽل دستی[Wireguard]</string>
     <string name="menu_item_import_config_manually_hysteria2">هؽل دستی[Hysteria2]</string>
+    <string name="menu_item_import_config_manually_amneziawg">Type manually[AmneziaWG]</string>
+    <string name="menu_item_import_config_manually_dnstt">Type manually[DNSTT]</string>
+    <string name="menu_item_import_config_manually_slipstream">Type manually[Slipstream]</string>
+    <string name="menu_item_import_config_manually_sushmode">Type manually[SushMode]</string>
     <string name="del_config_comfirm">پاک بۊ؟</string>
     <string name="del_invalid_config_comfirm">پؽش ز پاک کردن کانفیگ نا موئتبر واجۊری کوݩ! پاک کردن کانفیگن قوۊل اکۊنی؟</string>
     <string name="server_lab_remarks">نیشتنا</string>

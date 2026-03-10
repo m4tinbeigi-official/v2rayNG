@@ -57,6 +57,21 @@ data class ProfileItem(
     var reserved: String? = null,
     var mtu: Int? = null,
 
+    // AmneziaWG specific fields
+    var awgJc: Int? = null,
+    var awgJmin: Int? = null,
+    var awgJmax: Int? = null,
+    var awgS1: Int? = null,
+    var awgS2: Int? = null,
+    var awgH1: Int? = null,
+    var awgH2: Int? = null,
+    var awgH3: Int? = null,
+    var awgH4: Int? = null,
+
+    // DNSTT specific fields
+    var dnsResolver: String? = null,
+    var dnsPubKey: String? = null,
+
     var obfsPassword: String? = null,
     var portHopping: String? = null,
     var portHoppingInterval: String? = null,
@@ -120,6 +135,17 @@ data class ProfileItem(
                 && this.localAddress == obj.localAddress
                 && this.reserved == obj.reserved
                 && this.mtu == obj.mtu
+                && this.awgJc == obj.awgJc
+                && this.awgJmin == obj.awgJmin
+                && this.awgJmax == obj.awgJmax
+                && this.awgS1 == obj.awgS1
+                && this.awgS2 == obj.awgS2
+                && this.awgH1 == obj.awgH1
+                && this.awgH2 == obj.awgH2
+                && this.awgH3 == obj.awgH3
+                && this.awgH4 == obj.awgH4
+                && this.dnsResolver == obj.dnsResolver
+                && this.dnsPubKey == obj.dnsPubKey
 
                 && this.obfsPassword == obj.obfsPassword
                 && this.portHopping == obj.portHopping

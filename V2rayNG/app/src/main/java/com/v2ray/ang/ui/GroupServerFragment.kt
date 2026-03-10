@@ -100,8 +100,9 @@ class GroupServerFragment : BaseFragment<FragmentGroupServerBinding>() {
                     0 -> showQRCode(guid)
                     1 -> share2Clipboard(guid)
                     2 -> shareFullContent(guid)
-                    3 -> editServer(guid, profile)
-                    4 -> removeServer(guid, position)
+                    3 -> shareViaHotspot(guid)
+                    4 -> editServer(guid, profile)
+                    5 -> removeServer(guid, position)
                     else -> ownerActivity.toast("else")
                 }
             } catch (e: Exception) {
@@ -152,6 +153,42 @@ class GroupServerFragment : BaseFragment<FragmentGroupServerBinding>() {
                 }
             }
         }
+    }
+
+    /**
+     * Shares via Hotspot by displaying connection details.
+     * @param guid The server unique identifier
+     */
+    private fun shareViaHotspot(guid: String) {
+        val config = MmkvManager.decodeServerConfig(guid) ?: return
+        val shareUrl = AngConfigManager.share2String(config)
+        
+        val hotspotMessage = """
+            📱 Tap to connect to my Hotspot 📱
+
+            SSID: (Your Hotspot Name)
+            Password: (Your Hotspot Password)
+            
+            VPN Configuration URL:
+            $shareUrl
+            
+            1. Connect to my Hotspot
+            2. Copy this URL
+            3. Open v2rayNG -> Import from Clipboard
+        """.trimIndent()
+        
+        AlertDialog.Builder(ownerActivity)
+            .setTitle(R.string.title_configuration_share)
+            .setMessage(hotspotMessage)
+            .setPositiveButton(android.R.string.copy) { _, _ ->
+                Utils.setClipboard(ownerActivity, shareUrl)
+                ownerActivity.toastSuccess(R.string.toast_success)
+            }
+            .setNeutralButton("QR Code") { _, _ ->
+                 showQRCode(guid)
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     /**

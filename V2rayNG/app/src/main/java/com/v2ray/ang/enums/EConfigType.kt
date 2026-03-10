@@ -15,6 +15,10 @@ enum class EConfigType(val value: Int, val protocolScheme: String) {
     HYSTERIA2(9, AppConfig.HYSTERIA2),
     HYSTERIA(900, AppConfig.HYSTERIA),
     HTTP(10, AppConfig.HTTP),
+    AMNEZIAWG(11, AppConfig.AMNEZIAWG),
+    SLIPSTREAM(12, AppConfig.SLIPSTREAM),
+    DNSTT(13, AppConfig.DNSTT),
+    SUSH_MODE(14, AppConfig.SUSH_MODE),
     POLICYGROUP (101, AppConfig.CUSTOM);
 
     companion object {

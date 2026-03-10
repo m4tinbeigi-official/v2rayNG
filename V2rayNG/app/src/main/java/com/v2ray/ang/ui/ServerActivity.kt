@@ -137,8 +137,18 @@ class ServerActivity : BaseActivity() {
     private val container_ech_config_list: LinearLayout? by lazy { findViewById(R.id.lay_ech_config_list) }
     private val sp_ech_force_query: Spinner? by lazy { findViewById(R.id.sp_ech_force_query) }
     private val container_ech_force_query: LinearLayout? by lazy { findViewById(R.id.lay_ech_force_query) }
-    private val et_pinned_ca256: EditText? by lazy { findViewById(R.id.et_pinned_ca256) }
     private val container_pinned_ca256: LinearLayout? by lazy { findViewById(R.id.lay_pinned_ca256) }
+
+    // Custom protocols fields
+    private val et_awg_jc: EditText? by lazy { findViewById(R.id.et_awg_jc) }
+    private val et_awg_jmin: EditText? by lazy { findViewById(R.id.et_awg_jmin) }
+    private val et_awg_jmax: EditText? by lazy { findViewById(R.id.et_awg_jmax) }
+    private val et_awg_s1: EditText? by lazy { findViewById(R.id.et_awg_s1) }
+    private val et_awg_s2: EditText? by lazy { findViewById(R.id.et_awg_s2) }
+    private val et_awg_h1: EditText? by lazy { findViewById(R.id.et_awg_h1) }
+    private val et_awg_h2: EditText? by lazy { findViewById(R.id.et_awg_h2) }
+    private val et_awg_h3: EditText? by lazy { findViewById(R.id.et_awg_h3) }
+    private val et_awg_h4: EditText? by lazy { findViewById(R.id.et_awg_h4) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -155,6 +165,10 @@ class ServerActivity : BaseActivity() {
             EConfigType.TROJAN -> R.layout.activity_server_trojan
             EConfigType.WIREGUARD -> R.layout.activity_server_wireguard
             EConfigType.HYSTERIA2 -> R.layout.activity_server_hysteria2
+            EConfigType.AMNEZIAWG -> R.layout.activity_server_amneziawg
+            EConfigType.SLIPSTREAM -> R.layout.activity_server_slipstream
+            EConfigType.DNSTT -> R.layout.activity_server_dnstt
+            EConfigType.SUSH_MODE -> R.layout.activity_server_sushmode
             EConfigType.POLICYGROUP -> null
             else -> null
         } ?: return
@@ -368,6 +382,26 @@ class ServerActivity : BaseActivity() {
             et_port_hop_interval?.text = Utils.getEditable(config.portHoppingInterval)
             et_bandwidth_down?.text = Utils.getEditable(config.bandwidthDown)
             et_bandwidth_up?.text = Utils.getEditable(config.bandwidthUp)
+        } else if (config.configType == EConfigType.AMNEZIAWG) {
+            et_id.text = Utils.getEditable(config.secretKey.orEmpty())
+            et_public_key?.text = Utils.getEditable(config.publicKey.orEmpty())
+            et_local_address?.text = Utils.getEditable(config.localAddress ?: WIREGUARD_LOCAL_ADDRESS_V4)
+            et_awg_jc?.text = Utils.getEditable(config.awgJc?.toString() ?: "120")
+            et_awg_jmin?.text = Utils.getEditable(config.awgJmin?.toString() ?: "23")
+            et_awg_jmax?.text = Utils.getEditable(config.awgJmax?.toString() ?: "911")
+            et_awg_s1?.text = Utils.getEditable(config.awgS1?.toString() ?: "0")
+            et_awg_s2?.text = Utils.getEditable(config.awgS2?.toString() ?: "0")
+            et_awg_h1?.text = Utils.getEditable(config.awgH1?.toString() ?: "1")
+            et_awg_h2?.text = Utils.getEditable(config.awgH2?.toString() ?: "2")
+            et_awg_h3?.text = Utils.getEditable(config.awgH3?.toString() ?: "3")
+            et_awg_h4?.text = Utils.getEditable(config.awgH4?.toString() ?: "4")
+        } else if (config.configType == EConfigType.DNSTT) {
+            et_id.text = Utils.getEditable(config.dnsResolver.orEmpty())
+            et_public_key?.text = Utils.getEditable(config.dnsPubKey.orEmpty())
+        } else if (config.configType == EConfigType.SLIPSTREAM) {
+            et_id.text = Utils.getEditable(config.password.orEmpty())
+        } else if (config.configType == EConfigType.SUSH_MODE) {
+            et_id.text = Utils.getEditable(config.publicKey.orEmpty())
         }
         val securityEncryptions =
             if (config.configType == EConfigType.SHADOWSOCKS) shadowsocksSecuritys else securitys
@@ -536,6 +570,26 @@ class ServerActivity : BaseActivity() {
             config.portHoppingInterval = et_port_hop_interval?.text?.toString()
             config.bandwidthDown = et_bandwidth_down?.text?.toString()
             config.bandwidthUp = et_bandwidth_up?.text?.toString()
+        } else if (config.configType == EConfigType.AMNEZIAWG) {
+            config.secretKey = et_id.text.toString().trim()
+            config.publicKey = et_public_key?.text.toString().trim()
+            config.localAddress = et_local_address?.text.toString().trim()
+            config.awgJc = Utils.parseInt(et_awg_jc?.text.toString())
+            config.awgJmin = Utils.parseInt(et_awg_jmin?.text.toString())
+            config.awgJmax = Utils.parseInt(et_awg_jmax?.text.toString())
+            config.awgS1 = Utils.parseInt(et_awg_s1?.text.toString())
+            config.awgS2 = Utils.parseInt(et_awg_s2?.text.toString())
+            config.awgH1 = Utils.parseInt(et_awg_h1?.text.toString())
+            config.awgH2 = Utils.parseInt(et_awg_h2?.text.toString())
+            config.awgH3 = Utils.parseInt(et_awg_h3?.text.toString())
+            config.awgH4 = Utils.parseInt(et_awg_h4?.text.toString())
+        } else if (config.configType == EConfigType.DNSTT) {
+            config.dnsResolver = et_id.text.toString().trim()
+            config.dnsPubKey = et_public_key?.text.toString().trim()
+        } else if (config.configType == EConfigType.SLIPSTREAM) {
+            config.password = et_id.text.toString().trim()
+        } else if (config.configType == EConfigType.SUSH_MODE) {
+            config.publicKey = et_id.text.toString().trim()
         }
     }
 

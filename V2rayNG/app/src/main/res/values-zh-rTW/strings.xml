@@ -38,6 +38,10 @@
     <string name="menu_item_import_config_manually_trojan">新增 [Trojan]</string>
     <string name="menu_item_import_config_manually_wireguard">新增 [Wireguard]</string>
     <string name="menu_item_import_config_manually_hysteria2">新增 [Hysteria2]</string>
+    <string name="menu_item_import_config_manually_amneziawg">Type manually[AmneziaWG]</string>
+    <string name="menu_item_import_config_manually_dnstt">Type manually[DNSTT]</string>
+    <string name="menu_item_import_config_manually_slipstream">Type manually[Slipstream]</string>
+    <string name="menu_item_import_config_manually_sushmode">Type manually[SushMode]</string>
     <string name="del_config_comfirm">確定刪除？</string>
     <string name="del_invalid_config_comfirm">刪除前請先測試！確認刪除？</string>
     <string name="server_lab_remarks">備註</string>

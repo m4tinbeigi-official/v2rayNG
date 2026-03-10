@@ -1087,6 +1087,17 @@ object V2rayConfigManager {
             EConfigType.WIREGUARD -> WireguardFmt.toOutbound(profileItem)
             EConfigType.HYSTERIA2 -> Hysteria2Fmt.toOutbound(profileItem)
             EConfigType.HTTP -> HttpFmt.toOutbound(profileItem)
+            EConfigType.AMNEZIAWG,
+            EConfigType.DNSTT,
+            EConfigType.SLIPSTREAM,
+            EConfigType.SUSH_MODE -> {
+                // For custom cores, Xray acts as a SOCKS client connecting to the custom core's local port
+                val socksProfile = ProfileItem().apply {
+                    server = "127.0.0.1"
+                    serverPort = "${CustomCoreManager.getCorePort(profileItem)}"
+                }
+                SocksFmt.toOutbound(socksProfile)
+            }
             EConfigType.POLICYGROUP -> null
             else -> null
         }
@@ -1119,9 +1130,13 @@ object V2rayConfigManager {
             EConfigType.SHADOWSOCKS,
             EConfigType.SOCKS,
             EConfigType.HTTP,
-            EConfigType.TROJAN ->
+            EConfigType.TROJAN,
+            EConfigType.AMNEZIAWG,
+            EConfigType.DNSTT,
+            EConfigType.SLIPSTREAM,
+            EConfigType.SUSH_MODE ->
                 return OutboundBean(
-                    protocol = configType.name.lowercase(),
+                    protocol = EConfigType.SOCKS.name.lowercase(),
                     settings = OutSettingsBean(
                         servers = listOf(OutSettingsBean.ServersBean())
                     ),

@@ -184,6 +184,10 @@ object AppConfig {
     const val HYSTERIA = "hysteria://"
     const val HYSTERIA2 = "hysteria2://"
     const val HY2 = "hy2://"
+    const val AMNEZIAWG = "amneziawg://"
+    const val SLIPSTREAM = "slipstream://"
+    const val DNSTT = "dnstt://"
+    const val SUSH_MODE = "sush://"
 
     /** Give a good name to this, IDK*/
     const val VPN = "VPN"

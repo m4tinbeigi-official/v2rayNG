@@ -16,6 +16,7 @@ import com.v2ray.ang.enums.EConfigType
 import com.v2ray.ang.extension.toast
 import com.v2ray.ang.service.V2RayProxyOnlyService
 import com.v2ray.ang.service.V2RayVpnService
+import com.v2ray.ang.service.CustomCoreManager
 import com.v2ray.ang.util.MessageUtil
 import com.v2ray.ang.util.Utils
 import kotlinx.coroutines.CoroutineScope
@@ -172,10 +173,24 @@ object V2RayServiceManager {
             return false
         }
 
+        // Start Custom Core if needed
+        val configType = config.configType
+        if (configType == EConfigType.AMNEZIAWG ||
+            configType == EConfigType.DNSTT ||
+            configType == EConfigType.SLIPSTREAM ||
+            configType == EConfigType.SUSH_MODE) {
+            Log.i(AppConfig.TAG, "StartCore-Manager: Starting custom core for $configType")
+            if (!CustomCoreManager.startCustomCore(service, config)) {
+                Log.e(AppConfig.TAG, "StartCore-Manager: Failed to start custom core")
+                // We shouldn't strictly block here just in case, but usually if custom core fails it won't work
+            }
+        }
+
         Log.i(AppConfig.TAG, "StartCore-Manager: Starting core loop for ${config.remarks}")
         val result = V2rayConfigManager.getV2rayConfig(service, guid)
         if (!result.status) {
             Log.e(AppConfig.TAG, "StartCore-Manager: Failed to get V2Ray config")
+            CustomCoreManager.stopCustomCore()
             return false
         }
 
@@ -187,6 +202,7 @@ object V2RayServiceManager {
             ContextCompat.registerReceiver(service, mMsgReceive, mFilter, Utils.receiverFlags())
         } catch (e: Exception) {
             Log.e(AppConfig.TAG, "StartCore-Manager: Failed to register receiver", e)
+            CustomCoreManager.stopCustomCore()
             return false
         }
 
@@ -201,6 +217,7 @@ object V2RayServiceManager {
             coreController.startLoop(result.content, tunFd)
         } catch (e: Exception) {
             Log.e(AppConfig.TAG, "StartCore-Manager: Failed to start core loop", e)
+            CustomCoreManager.stopCustomCore()
             return false
         }
 
@@ -208,6 +225,7 @@ object V2RayServiceManager {
             Log.e(AppConfig.TAG, "StartCore-Manager: Core failed to start")
             MessageUtil.sendMsg2UI(service, AppConfig.MSG_STATE_START_FAILURE, "")
             NotificationManager.cancelNotification()
+            CustomCoreManager.stopCustomCore()
             return false
         }
 
@@ -217,6 +235,7 @@ object V2RayServiceManager {
             Log.i(AppConfig.TAG, "StartCore-Manager: Core started successfully")
         } catch (e: Exception) {
             Log.e(AppConfig.TAG, "StartCore-Manager: Failed to complete startup", e)
+            CustomCoreManager.stopCustomCore()
             return false
         }
         return true
@@ -228,6 +247,7 @@ object V2RayServiceManager {
      * @return True if the core was stopped successfully, false otherwise.
      */
     fun stopCoreLoop(): Boolean {
+        CustomCoreManager.stopCustomCore()
         val service = getService() ?: return false
 
         if (coreController.isRunning) {
