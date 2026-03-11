@@ -52,6 +52,7 @@ V2rayNG/app/google-services.json
 *.o
 *.pyc
 *.pyo
+*.apk
 
 # Ignore files from other IDEs
 .vscode/
