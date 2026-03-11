@@ -31,18 +31,18 @@ jobs:
     - name: Build with Gradle
       run: |
         cd V2rayNG
-        ./gradlew assembleDebug
+        ./gradlew assemblePlaystoreDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: v2rayNG-debug-apk
-        path: V2rayNG/app/build/outputs/apk/debug/*.apk
+        name: v2rayNG-all-apks
+        path: V2rayNG/app/build/outputs/apk/**/*.apk
 
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v2
       with:
-        files: V2rayNG/app/build/outputs/apk/debug/*.apk
+        files: V2rayNG/app/build/outputs/apk/**/*.apk
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
